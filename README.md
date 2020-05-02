@@ -1,0 +1,2 @@
+# randor
+return random value
