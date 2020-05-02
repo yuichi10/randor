@@ -10,6 +10,7 @@ var random Rand
 // Rand is math/rand Rand struct
 type Rand interface {
 	Int() int
+	Int63() int64
 }
 
 func init() {
@@ -19,4 +20,9 @@ func init() {
 // Int return random int
 func Int() int {
 	return random.Int()
+}
+
+// Int64 return random int64
+func Int64() int64 {
+	return random.Int63()
 }
