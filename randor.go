@@ -26,3 +26,8 @@ func Int() int {
 func Int64() int64 {
 	return random.Int63()
 }
+
+// Uint64 return random uint64
+func Uint64() uint64 {
+	return uint64(random.Int63())
+}
