@@ -6,15 +6,23 @@ import (
 )
 
 var random Rand
+var str *strSettings
 
 // Rand is math/rand Rand struct
 type Rand interface {
 	Int() int
 	Int63() int64
+	Intn(int) int
+}
+
+type strSettings struct {
+	chars  []rune
+	length int
 }
 
 func init() {
 	random = rand.New(rand.NewSource(time.Now().UnixNano()))
+	str = &strSettings{chars: []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), length: 8}
 }
 
 // Int return random int
@@ -30,4 +38,27 @@ func Int64() int64 {
 // Uint64 return random uint64
 func Uint64() uint64 {
 	return uint64(random.Int63())
+}
+
+// StrOption able to customize what kind of charactor return
+type StrOption func(s *strSettings) error
+
+// StrLength able to handle string length
+func StrLength(l int) StrOption {
+	return func(s *strSettings) error {
+		s.length = l
+		return nil
+	}
+}
+
+// String return random string
+func String(options ...StrOption) string {
+	for _, o := range options {
+		o(str)
+	}
+	res := make([]rune, str.length)
+	for i := range res {
+		res[i] = str.chars[random.Intn(len(str.chars))]
+	}
+	return string(res)
 }
