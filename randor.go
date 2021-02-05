@@ -1,6 +1,7 @@
 package randor
 
 import (
+	"math"
 	"math/rand"
 	"time"
 )
@@ -13,6 +14,7 @@ type Rand interface {
 	Int() int
 	Int63() int64
 	Intn(int) int
+	NormFloat64() float64
 }
 
 type strSettings struct {
@@ -38,6 +40,16 @@ func Int64() int64 {
 // Uint64 return random uint64
 func Uint64() uint64 {
 	return uint64(random.Int63())
+}
+
+// Float64 return random float64
+func Float64(decimal int) float64 {
+	r := random.NormFloat64()
+	if decimal > 0 {
+		pow := math.Pow10(decimal)
+		return math.Floor(r*pow) / pow
+	}
+	return r
 }
 
 // StrOption able to customize what kind of charactor return
