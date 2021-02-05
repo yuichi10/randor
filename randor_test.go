@@ -83,6 +83,21 @@ func TestUint64(t *testing.T) {
 	assert.Equal(t, 1, fake.callInt63Func)
 }
 
+func TestIntn(t *testing.T) {
+	r := random
+	defer func() {
+		random = r
+	}()
+
+	fake := newSpyRandom(1)
+	random = fake
+
+	Intn(3)
+
+	assert.Equal(t, 1, fake.callIntnFunc)
+	assert.Equal(t, 3, fake.argIntn)
+}
+
 func TestFloat64(t *testing.T) {
 	r := random
 	defer func() {

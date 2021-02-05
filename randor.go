@@ -42,6 +42,11 @@ func Uint64() uint64 {
 	return uint64(random.Int63())
 }
 
+// Intn returns, as an int, a non-negative pseudo-random number in [0,n) from the default Source. It panics if n <= 0.
+func Intn(n int) int {
+	return random.Intn(n)
+}
+
 // Float64 return random float64
 func Float64(decimal int) float64 {
 	r := random.NormFloat64()
