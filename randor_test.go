@@ -89,13 +89,43 @@ func TestIntn(t *testing.T) {
 		random = r
 	}()
 
-	fake := newSpyRandom(1)
+	fake := newSpyRandom(5)
 	random = fake
 
 	Intn(3)
 
 	assert.Equal(t, 1, fake.callIntnFunc)
 	assert.Equal(t, 3, fake.argIntn)
+}
+
+func TestIntRange(t *testing.T) {
+	r := random
+	defer func() {
+		random = r
+	}()
+
+	t.Run("positive number will return", func(t *testing.T) {
+		fake := newSpyRandom(1)
+
+		random = fake
+
+		v := IntRange(10)
+
+		assert.Equal(t, 2, fake.callIntnFunc)
+		assert.Equal(t, 7, v)
+
+	})
+
+	t.Run("negative number will return", func(t *testing.T) {
+		fake := newSpyRandom(2)
+
+		random = fake
+
+		v := IntRange(10)
+
+		assert.Equal(t, 2, fake.callIntnFunc)
+		assert.Equal(t, -6, v)
+	})
 }
 
 func TestFloat64(t *testing.T) {

@@ -47,6 +47,16 @@ func Intn(n int) int {
 	return random.Intn(n)
 }
 
+
+// IntRange return negative or positive number between -n < 0 < n
+func IntRange(n int) int {
+	sign := 1
+	if random.Intn(2) == 0 {
+		sign = -1
+	}
+	return random.Intn(n) * sign
+}
+
 // Float64 return random float64
 func Float64(decimal int) float64 {
 	r := random.NormFloat64()
